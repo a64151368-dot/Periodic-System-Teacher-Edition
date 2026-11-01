@@ -1,0 +1,827 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Періодична система листопада</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800;900&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: playful autumn "periodic table" of November. Groups I–VIII as columns, weeks as rows; minimal text outside the table; each cell opens a window with tabs (students / class teacher). Single committed light autumn look. */
+:root{
+  color-scheme:light;
+  --sky1:#FFF0D9; --sky2:#FFD4B8; --sky3:#FFC1A6;
+  --ink:#3A2416; --muted:#8A6650; --paper:#FFFDF8; --line:#F1D2B6; --soft:#FFF4E6;
+  --w1a:#FF7A9C; --w1b:#E8436B;
+  --w2a:#FFCF4A; --w2b:#FF9A1F;
+  --w3a:#5CC2FF; --w3b:#2D7FE0;
+  --w4a:#C094FF; --w4b:#8A55E6;
+  --w5a:#6BE0A6; --w5b:#20B271;
+  --cya:#3FD8D2; --cyb:#139E9E;
+  --display:"Rubik","Nunito",system-ui,sans-serif;
+  --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+html,body{background:var(--sky1)}
+body{color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;
+  background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 55%,var(--sky3) 100%);min-height:100%}
+[hidden]{display:none!important}
+body.modal-open{overflow:hidden}
+#leaves{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding-block:22px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
+.wrap>*{min-width:0}
+
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px 20px;flex-wrap:wrap}
+.ttlblock{display:grid;gap:4px}
+.eyebrow{font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(28px,5.4vw,58px);line-height:.98;margin:0;letter-spacing:-.01em;text-wrap:balance}
+h1 .l{display:inline-block;transform:rotate(var(--r,0deg))}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--paper);border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:800;font-size:14px}
+.bar{width:90px;height:10px;border-radius:99px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--w2a),var(--w1b));border-radius:99px;transition:width .4s}
+
+.board{background:rgba(255,253,248,.72);border:3px solid #fff;border-radius:26px;padding:14px 14px 12px;box-shadow:0 12px 40px rgba(160,80,30,.18);backdrop-filter:blur(3px)}
+.scroll{overflow-x:auto;padding:12px 6px 8px;-webkit-overflow-scrolling:touch}
+.pt,.fb{display:grid;grid-template-columns:84px repeat(8,minmax(96px,1fr));gap:8px;min-width:900px}
+.fb{margin-top:14px;padding-top:12px;border-top:3px dotted var(--line)}
+.gh{text-align:center;display:grid;font-size:12px;font-weight:700;color:var(--muted)}
+.gh b{font-family:var(--display);font-size:18px;color:var(--ink);font-weight:800}
+.gh .c{display:inline-block;width:100%;height:5px;border-radius:9px;margin-top:3px;background:var(--gc,transparent)}
+.ph{display:grid;align-content:center;gap:2px;padding-right:6px;border-right:3px dotted var(--line)}
+.ph b{font-family:var(--display);font-size:26px;line-height:1;font-weight:900}
+.ph span{font-size:11px;font-weight:700;color:var(--muted)}
+.ph i{font-style:normal;font-size:10px;font-weight:800;line-height:1.15;color:var(--pc)}
+.void{border-radius:16px;border:2px dashed rgba(200,140,100,.22)}
+
+.el{position:relative;aspect-ratio:1/1.12;border:3px solid #fff;border-radius:16px;padding:7px 8px;text-align:left;font:inherit;cursor:pointer;
+  color:var(--tx,#fff);background:linear-gradient(155deg,var(--a),var(--b));
+  display:flex;flex-direction:column;justify-content:space-between;transform:rotate(var(--rot,0deg));
+  box-shadow:0 5px 0 rgba(0,0,0,.12),0 10px 18px rgba(150,70,20,.2);transition:transform .2s,box-shadow .2s}
+.el:hover{transform:rotate(0deg) translateY(-4px) scale(1.05);box-shadow:0 8px 0 rgba(0,0,0,.12),0 16px 26px rgba(150,70,20,.28);z-index:3}
+.el:focus-visible{outline:4px solid var(--ink);outline-offset:3px}
+.el .top{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--display);font-weight:800;font-size:15px;line-height:1}
+.el .mass{font-size:10px;font-weight:700;opacity:.9;font-family:var(--body)}
+.el .pic{position:absolute;right:6px;bottom:24px;font-size:clamp(26px,3vw,36px);line-height:1;filter:drop-shadow(0 2px 2px rgba(0,0,0,.18))}
+.el .sym{font-family:var(--display);font-weight:900;font-size:clamp(24px,2.7vw,32px);line-height:1;letter-spacing:-.02em;text-shadow:0 2px 0 rgba(0,0,0,.12)}
+.el .nm{font-size:11.5px;font-weight:800;line-height:1.15;position:relative}
+.el .jr{position:absolute;top:-22px;left:50%;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;pointer-events:none}
+.el .jr .ow{font-size:28px;line-height:1;display:inline-block;transform-origin:50% 90%;animation:owl 1.4s ease-in-out infinite;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+.el .jr .jt{margin-top:-3px;background:#E8436B;color:#fff;font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;padding:1px 6px;border-radius:999px;border:2px solid #fff;animation:jpulse 1.4s ease-out infinite}
+@keyframes owl{0%,100%{transform:translateY(0) rotate(0)}20%{transform:translateY(-4px) rotate(-10deg) scaleX(1.12)}40%{transform:translateY(0) rotate(8deg)}60%{transform:translateY(-3px) rotate(-6deg) scaleX(1.1)}80%{transform:translateY(0) rotate(0)}}
+@keyframes jpulse{0%{box-shadow:0 0 0 0 rgba(232,67,107,.75)}70%{box-shadow:0 0 0 10px rgba(232,67,107,0)}100%{box-shadow:0 0 0 0 rgba(232,67,107,0)}}
+.jnote{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:15px;color:#fff;background:linear-gradient(135deg,#FF6B8A,#E8436B);border-radius:14px;padding:10px 14px;animation:jglow 1.6s ease-in-out infinite}
+.jnote span{font-size:20px;display:inline-block;animation:jwig 1.6s ease-in-out infinite}
+@keyframes jglow{50%{box-shadow:0 0 0 6px rgba(232,67,107,.25)}}
+@keyframes jwig{50%{transform:rotate(-12deg) scale(1.15)}}
+.jleg{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#fff;font-size:15px;animation:jpulse 1.6s ease-out infinite}
+.el.noble{background:radial-gradient(circle at 30% 25%,#fff 0,transparent 55%),linear-gradient(155deg,color-mix(in srgb,var(--a) 35%,#fff),color-mix(in srgb,var(--b) 30%,#fff));color:var(--b);border-style:dashed;border-color:var(--b)}
+.el.noble .sym{text-shadow:none}
+.el.memo{background:radial-gradient(circle at 50% 35%,#FFD38A 0,transparent 60%),linear-gradient(160deg,#6B4A3A,#3A2416);color:#FFE6B8}
+.el.dig{background:linear-gradient(180deg,#2E7BF0 0 52%,#FFD43B 52% 100%);color:#fff}
+.el.dig .nm,.el.dig .mass{color:#3A2416}
+.el.leafbtn{background:none;border:0;box-shadow:none;padding:0;overflow:visible;z-index:5;color:#fff;transform-origin:50% 95%;animation:sway 3.2s ease-in-out infinite}
+.el.leafbtn:hover{transform:scale(1.12) rotate(0deg);box-shadow:none;animation-play-state:paused}
+.el.leafbtn .leaf{position:absolute;left:-26%;top:-26%;width:152%;height:152%;overflow:visible;animation:leafglow 1.8s ease-in-out infinite}
+.el.leafbtn .lin{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1px;padding-bottom:22%;text-shadow:0 2px 3px rgba(120,30,0,.45)}
+.el.leafbtn .lnum{font-family:var(--display);font-weight:900;font-size:16px;line-height:1}
+.el.leafbtn .lsym{font-family:var(--display);font-weight:900;font-size:clamp(26px,3vw,34px);line-height:1}
+.el.leafbtn .lnm{font-size:11px;font-weight:900;line-height:1.1}
+.el.leafbtn .go{top:-40px;animation:gobob 1.2s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes leafglow{0%,100%{filter:drop-shadow(0 4px 3px rgba(150,50,10,.35)) drop-shadow(0 0 0 rgba(255,140,40,0))}50%{filter:drop-shadow(0 4px 3px rgba(150,50,10,.35)) drop-shadow(0 0 14px rgba(255,140,40,.95))}}
+@keyframes gobob{0%,100%{transform:translateX(-50%) rotate(-4deg) translateY(0)}50%{transform:translateX(-50%) rotate(4deg) translateY(-4px)}}
+
+.el .go{position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-4deg);white-space:nowrap;background:#FFD43B;color:#3A2416;font-size:11px;font-weight:900;padding:3px 9px;border-radius:999px;border:2px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.fb .el{aspect-ratio:1/1;background:linear-gradient(155deg,#FFFFFF,#FFF0DE);color:var(--ink);border-color:var(--line)}
+.fbl{font-size:11px;font-weight:800;color:var(--muted);display:grid;align-content:center;border-right:3px dotted var(--line);padding-right:6px;line-height:1.25}
+.el.lock{background:repeating-linear-gradient(45deg,#FFF7EE 0 10px,#FFEBD6 10px 20px);color:#B48A6C;border:3px dashed #E8B98F;box-shadow:none}
+.el.lock .pic{filter:grayscale(1) opacity(.35)}
+.el .lk{position:absolute;left:0;right:0;top:40%;text-align:center;font-weight:900;font-size:12px;color:var(--ink)}
+.el .lk span{background:#fff;border-radius:999px;padding:2px 8px;border:2px solid #E8B98F}
+.el .new{position:absolute;top:-10px;right:-8px;background:var(--ink);color:#fff;font-size:10px;font-weight:900;padding:3px 7px;border-radius:999px;transform:rotate(8deg);animation:bob 1.4s ease-in-out infinite}
+@keyframes bob{50%{transform:rotate(8deg) translateY(-3px)}}
+.el .got{position:absolute;bottom:4px;right:6px;font-size:11px}
+.foot{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;font-size:12.5px;font-weight:700;color:var(--muted);margin-top:8px;padding:0 4px}
+.foot span{display:inline-flex;gap:6px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ink);display:inline-block}
+
+/* ---------- window ---------- */
+.ov{position:fixed;inset:0;z-index:50;background:rgba(58,36,22,.45);backdrop-filter:blur(4px);display:grid;place-items:center;
+  padding:max(12px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.ov.tall{position:absolute;place-items:start center;padding-top:0}
+.win{width:min(900px,100%);max-height:calc(100vh - 24px);overflow:auto;background:var(--paper);border:3px solid #fff;border-radius:26px;box-shadow:0 30px 80px rgba(80,30,10,.35);animation:pop .25s ease-out;overscroll-behavior:contain}
+.ov.tall .win{max-height:none;overflow:visible}
+@keyframes pop{from{transform:translateY(10px) scale(.97);opacity:.4}}
+.hero{position:relative;padding:20px 22px 0;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;color:var(--tx,#fff);background:linear-gradient(140deg,var(--a),var(--b));border-radius:23px 23px 0 0}
+.hero.memo{background:linear-gradient(160deg,#6B4A3A,#3A2416);color:#FFE6B8}
+.hero.dig{background:linear-gradient(180deg,#2E7BF0 0 58%,#FFD43B 58% 100%);color:#fff}
+.hero.start{background:linear-gradient(140deg,#FF9A3C,#FF5E62);color:#fff}
+.hero.fbk{background:linear-gradient(140deg,#FFE3C4,#FFC9A0);color:var(--ink)}
+.hero.nobleh{background:linear-gradient(140deg,color-mix(in srgb,var(--a) 45%,#fff),color-mix(in srgb,var(--b) 35%,#fff));color:var(--ink)}
+.hero.lockh{background:repeating-linear-gradient(45deg,#FFF7EE 0 14px,#FFEBD6 14px 28px);color:var(--ink)}
+.bigel{width:104px;aspect-ratio:1/1.12;border-radius:18px;background:rgba(255,255,255,.22);border:3px solid currentColor;padding:8px 10px;display:flex;flex-direction:column;justify-content:space-between;transform:rotate(-4deg);margin-bottom:16px}
+.bigel .top{display:flex;justify-content:space-between;font-family:var(--display);font-weight:800;font-size:16px}
+.bigel .top span:last-child{font-size:11px;font-family:var(--body)}
+.bigel .sym{font-family:var(--display);font-weight:900;font-size:40px;line-height:1}
+.bigel .nm{font-size:12px;font-weight:800}
+.hero .ttl{display:grid;gap:4px;min-width:0;padding-bottom:16px}
+.hero .wk{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;opacity:.92}
+.hero h3{font-family:var(--display);font-weight:800;font-size:clamp(22px,3.4vw,30px);line-height:1.1;margin:0;text-wrap:balance}
+.hero .dt{font-size:15px;font-weight:800;opacity:.92}
+.hero .bigpic{font-size:clamp(50px,7vw,76px);line-height:1;filter:drop-shadow(0 4px 4px rgba(0,0,0,.2));animation:wig 3s ease-in-out infinite;padding-bottom:16px}
+@keyframes wig{50%{transform:rotate(6deg) scale(1.05)}}
+.x{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.9);color:var(--ink);font-size:22px;font-weight:900;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.12)}
+.tabs{grid-column:1/-1;display:flex;gap:6px;margin:0 -2px}
+.tab{font:inherit;font-family:var(--display);font-weight:800;font-size:15px;border:0;border-radius:16px 16px 0 0;padding:10px 18px;cursor:pointer;background:rgba(255,255,255,.35);color:inherit}
+.tab[aria-selected="true"]{background:var(--paper);color:var(--ink)}
+@media (max-width:720px){.hero{grid-template-columns:auto 1fr;padding:16px 16px 0;gap:12px}.hero .bigpic{display:none}.bigel{width:80px}.bigel .sym{font-size:30px}.tab{font-size:14px;padding:9px 12px}}
+.pane{padding:18px 22px 20px;display:grid;gap:14px}
+.bubble{background:linear-gradient(180deg,color-mix(in srgb,var(--a) 18%,#fff),#fff);border:3px solid color-mix(in srgb,var(--a) 50%,#fff);border-radius:20px;padding:16px 18px;font-size:18px;font-weight:700;line-height:1.45}
+.row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:720px){.row2{grid-template-columns:minmax(0,1fr)}}
+.blk{display:grid;gap:8px;align-content:start;min-width:0}
+.lab{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.form{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:15px;background:var(--soft);border:2px solid var(--line);border-radius:999px;padding:6px 14px;width:fit-content;max-width:100%}
+.fun{font-family:var(--display);font-weight:800;font-size:16px;color:var(--b);background:#fff;border:2px dashed var(--b);border-radius:14px;padding:8px 12px}
+.pane ul,.pane ol{margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px}
+.planb{background:#FFF7E0;border:2px solid #FFD98A;border-radius:16px;padding:10px 14px;font-size:15px}
+.planb b{font-family:var(--display)}
+.cases{background:#fff;border:3px solid var(--line);border-radius:18px;padding:14px 16px;display:grid;gap:10px}
+.cases h5{margin:0;font-family:var(--display);font-weight:800;font-size:16px}
+.case{border-left:5px solid var(--b);background:var(--soft);border-radius:0 12px 12px 0;padding:8px 12px;display:grid;gap:4px;font-size:15px}
+.case .ct{font-weight:900}
+.case .ca{color:#1F6B45;font-weight:700}
+.cases ul.cl{margin:0;padding-left:20px;display:grid;gap:4px;font-size:15px}
+.cq{background:#EEF6FF;border-radius:12px;padding:8px 12px;font-size:15px}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.lnk{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:800;font-size:14px;padding:8px 14px;border-radius:999px;background:var(--ink);color:#fff;border:2px solid var(--ink)}
+.lnk.alt{background:#fff;color:var(--ink)}
+.chip{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px;background:#fff;border:2px solid var(--w1b);color:var(--w1b)}
+.wheelbox{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;background:#fff;border:3px dashed var(--line);border-radius:20px;padding:14px}
+@media (max-width:600px){.wheelbox{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}}
+.wheelwrap{position:relative;width:220px;max-width:100%;aspect-ratio:1}
+.wheelwrap canvas{width:100%;height:100%;display:block}
+.wheelwrap .ptr{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:26px solid var(--ink)}
+.spin{font:inherit;font-family:var(--display);font-weight:800;font-size:18px;border:0;border-radius:999px;padding:12px 24px;background:linear-gradient(135deg,var(--w2b),var(--w1b));color:#fff;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.15);justify-self:start}
+@media (max-width:600px){.spin{justify-self:center}}
+.spin:active{transform:translateY(2px);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.wres{font-family:var(--display);font-weight:800;font-size:21px;min-height:1.4em}
+.wexp{font-family:var(--body);font-weight:700;font-size:16px;line-height:1.45;margin-top:6px;background:var(--soft);border:2px solid var(--line);border-radius:14px;padding:10px 12px;color:var(--ink)}
+.lockmsg{display:grid;gap:10px;justify-items:center;text-align:center;padding:26px 10px;font-size:18px;font-weight:700}
+.wnav{display:flex;justify-content:space-between;gap:8px;padding:0 22px 20px}
+.wnav button{font:inherit;font-weight:800;font-size:14px;border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 16px;cursor:pointer}
+.x:focus-visible,.tab:focus-visible,.lnk:focus-visible,.spin:focus-visible,.wnav button:focus-visible{outline:3px solid var(--w3b);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.el,.win,.el.leafbtn,.el.leafbtn .leaf,.el.leafbtn .go,.el .jr .ow,.el .jr .jt,.jnote,.jnote span,.jleg{transition:none;animation:none}.el:hover{transform:rotate(var(--rot,0deg))}.el .new,.hero .bigpic{animation:none}}
+</style>
+
+<canvas id="leaves" aria-hidden="true"></canvas>
+<div class="wrap">
+  <header>
+    <div class="ttlblock">
+      <div class="eyebrow">🍂 9 клас · онлайн · листопад 2026</div>
+      <h1 id="h1">Періодична система листопада</h1>
+    </div>
+    <div class="pills">
+      <span class="pill" id="today">📅</span>
+      <span class="pill" title="скільки клітинок ти відкрив">⭐ відкрито <span id="got">0</span> / <span id="tot">0</span> <span class="bar"><i id="gbar" style="width:0"></i></span></span>
+    </div>
+  </header>
+
+  <section class="board" aria-label="Періодична таблиця листопада">
+    <div class="scroll">
+      <div class="pt" id="pt"></div>
+    </div>
+    <div class="foot">
+      <span>👆 Натисни на клітинку, щоб відкрити картку</span>
+      <span><span class="jleg">🦉</span> сова — потрібен запис в е-журнал</span>
+      <span>VII — справи 9 класу · VIII — тема тижня</span>
+    </div>
+  </section>
+</div>
+
+<div class="ov" id="ov" hidden>
+  <article class="win" id="win" role="dialog" aria-modal="true" aria-labelledby="wtitle"></article>
+</div>
+
+<script>
+const LOCK=false; /* true — клітинки відкриваються за датою */
+const YEAR=2026, MONTH=11;
+
+const W={
+ 1:{n:"Тиждень добрих справ",a:"--w1a",b:"--w1b",tx:"#fff",dates:"02–06.11"},
+ 2:{n:"Тиждень безпеки дорожнього руху",a:"--w2a",b:"--w2b",tx:"#3A2416",dates:"09–13.11"},
+ 3:{n:"Тиждень дитинства та гідності",a:"--w3a",b:"--w3b",tx:"#fff",dates:"16–20.11"},
+ 4:{n:"Тиждень проти насильства",a:"--w4a",b:"--w4b",tx:"#fff",dates:"23–27.11"},
+ 5:{n:"Підсумки і Тиждень ЗСУ",a:"--w5a",b:"--w5b",tx:"#123A26",dates:"30.11"},
+ c:{n:"Фокус 9 класу",a:"--cya",b:"--cyb",tx:"#073433"},
+ f:{n:"Справи на весь місяць",a:"--w2a",b:"--w2b",tx:"#3A2416"}
+};
+const SHORT={1:"добрі справи",2:"безпека руху",3:"дитинство і гідність",4:"проти насильства",5:"підсумки"};
+const DAYS=["понеділок","вівторок","середа","четвер","п’ятниця","субота","неділя"];
+const L={
+ harazd:["Тест НБУ «Гаразд»","https://harazd.bank.gov.ua/"],
+ wheel:["Колесо імен · безкоштовно","https://wheelofnames.com/"],
+ dsns:["Абетка безпеки ДСНС","https://dsns.gov.ua/abetka-bezpeki"],
+ genially:["Genially · безкоштовний план","https://genially.com/"],
+ padlet:["Padlet · дошка з 5 класу","https://padlet.com/"],
+ pad:["Padlet · створити дошку","https://padlet.com/"],
+ comix:["Make Beliefs Comix · безкоштовно, без реєстрації","https://www.makebeliefscomix.com/"],
+ answer:["AnswerGarden · хмара слів, безкоштовно","https://answergarden.ch/"],
+ qr:["QR Code Monkey · безкоштовний QR-код","https://www.qrcode-monkey.com/"],
+ meet:["Google Meet · безкоштовно","https://meet.google.com/"],
+ menti:["Mentimeter · ввести код (безкоштовно)","https://www.menti.com/"],
+ kahoot:["Kahoot · ввести PIN (безкоштовно)","https://kahoot.it/"],
+ wordwall:["Wordwall · безкоштовно до 5 ігор","https://wordwall.net/uk"],
+ learningapps:["LearningApps · безкоштовно","https://learningapps.org/"],
+ canva:["Canva · безкоштовно","https://www.canva.com/"],
+ forms:["Google Форми · безкоштовно","https://forms.google.com/"],
+ gid:["Форма до Дня Гідності та Свободи","https://docs.google.com/forms/d/e/1FAIpQLScW6zEjjlwfNd9rsDZwlwTgHOK0jBczeIia39kqCHfDzuuPzQ/viewform"],
+ dyt:["Форма Тижня дитинства та гідності","https://docs.google.com/forms/d/e/1FAIpQLSfdgCrWUtKwboOjLr-L2Jyf1z31kYxXxIHsIAoCPuUD0tuhyw/viewform"],
+ symb:["Умови конкурсу символу солідарності","https://drive.google.com/file/d/1ry13Xd_vx4L1VyoMVeDi_JVLPkhhbRUj/view"],
+ maidan:["Музей Революції Гідності","https://www.maidanmuseum.org/"],
+ lastrada:["Ла Страда: допомога","https://la-strada.org.ua/"],
+ lsguide:["Посібник «16 днів проти насильства»","https://la-strada.org.ua/wp-content/uploads/2021/01/posibnyk_protydiya-nasylstvu_-dodatok.pdf"],
+ holod:["Національний музей Голодомору","https://holodomormuseum.org.ua/"],
+ man:["МАН-Юніор Ерудит","https://quiz.man-junior.org.ua/signup.php"],
+ mine1:["Олімпіада з мінної безпеки 12–14","https://uda-training.org.ua/categories/olimpiada-z-minnoyi-nebezpeky-12-14-rokiv/"],
+ mine2:["Олімпіада з мінної безпеки 15–17","https://uda-training.org.ua/categories/olimpiada-z-minnoyi-nebezpeky-15-17-rokiv/"]
+};
+
+/* p період, g група (1–5 Пн–Пт, 6 вихідні, 7 фокус 9 класу, 8 тема тижня), u день відкриття
+   f форма проведення, stu звернення, todo що робимо, sl посилання учням, wheel колесо, fun фішка,
+   plan план ліцею, tip підказка, b план Б (немає світла чи інтернету), tl посилання вчителю */
+const E=[
+{p:1,g:6,n:"1",u:1,s:"Ст",nm:"Старт гри",pic:"🚀",m:"нд",cls:"start",f:"🎡 Колесо завдань на понеділок",
+ stu:"Привіт, 9 клас! З понеділка в нас стартує гра «Періодична система листопада». Кожен робочий день тут відкриватиметься новий «елемент»: подія, завдання або гра дня. Поки вихідні, підготуймося: крутни колесо нижче, прочитай своє завдання для ранкового кола і напиши мені в особисті, що тобі випало. Побачимося в понеділок!",
+ todo:"1) Крутни колесо. 2) Прочитай, що потрібно зробити. 3) Напиши вчителю в особисті, що випало.",
+ plan:["Старт листопада: знайомство класу з «Періодичною системою листопада»","Щодня: контроль відвідування онлайн-уроків, скріни присутності для батьків","Щодня: ранкові онлайн-кола «Здорове харчування», «Рухова активність», «Еко-звички»"],
+ wheel:[["Сніданок дня", "У понеділок до 9:00 сфотографуй свій сніданок і надішли в чат. Клас вгадуватиме, чий він."], ["Руханка 1 хв", "Підготуй одну просту вправу на 1 хвилину. На ранковому колі опишеш її, і всі повторять."], ["Еко-звичка", "Напиши в чат одну корисну для природи звичку твоєї родини: як ви бережете воду, світло чи сортуєте сміття."], ["Танцювальна пауза", "Обери веселу пісню на 1 хвилину для руханки класу і надішли вчителю її назву."], ["Розтяжка", "Підготуй 3 прості рухи для шиї та спини після сидіння за телефоном. Опишеш їх на ранковому колі, і всі зробимо разом."], ["Мій улюбленець", "Надішли фото свого улюбленця (кіт, пес, корова, курка — будь-хто!) і одне речення про нього."]],
+ wt:"Учні надсилають вам в особисті, що їм випало. Так ви знаєте, хто що готує: ранкові кола першого тижня ведуть учні по черзі, по одному завданню щоранку.",
+ tip:["Поділіться сторінкою з учнями: меню «Поділитися» → публічне посилання","Закріпіть посилання в класному чаті","Для кожної вправи з дошкою (Банка турботи, челендж, виставка, Стіна пам’яті, Карта професій) створіть окрему дошку Padlet і надішліть посилання в чат у день заходу","Щоранку на ранковому колі відкривайте елемент дня; ведучого кола обирає колесо"],
+ b:"Скріншот таблиці в чат: сторінка відкриється, коли з’явиться зв’язок.",
+ fun:"«Кожна твоя реакція чи відповідь — ще один елемент твоєї колекції. 30 листопада назвемо Алхіміків листопада!»"},
+
+{p:1,g:1,n:"2",u:2,s:"Сс",nm:"Добрі серця",pic:"💖",m:"20",f:"🎯 «Бінго спільного» + 📮 скринька добрих слів",
+ stu:"Стартує Тиждень добрих справ! Спершу гра «Бінго спільного»: у картці 9 клітинок — «у мене є кіт», «люблю готувати», «встав сьогодні до 7 ранку»… Відзнач, що підходить тобі, і подивись, скільки ще людей у класі такі самі. А ще цього тижня відкрита анонімна «Скринька добрих слів»: напиши одне добре слово однокласнику чи всьому класу. У п’ятницю я прочитаю всі!",
+ todo:"Заповни бінго і залиш хоча б одне добре слово в скриньці. Кому написати? Підкаже колесо.",
+ wheel:[["Усьому класу", "Напиши в «Скриньку добрих слів» одне добре слово для всього класу."], ["Сусідові за списком", "Знайди себе в списку класу і напиши добре слово тому, хто стоїть після тебе."], ["Тому, хто сьогодні мовчав", "Згадай, хто сьогодні нічого не писав у чат, і напиши йому добре слово."], ["Вчителеві", "Напиши добре слово будь-кому з учителів."], ["Тому, хто колись підтримав", "Згадай однокласника, який колись тобі допоміг, і подякуй йому в скриньці."], ["Собі самому", "Напиши, за що ти можеш себе сьогодні похвалити."]],
+ wt:"Колесо лише підказує адресата доброго слова. Учням не потрібно звітувати, що випало: результат видно у «Скриньці добрих слів».",
+ plan:["Старт Тижня добрих справ: День добрих сердець","Тиждень заощаджень (до 06.11): онлайн-тест НБУ «Гаразд»","Інструктивно-методична оперативка (щопонеділка)"],
+ tip:["Бінго 3×3 у Canva або Google Формі з галочками; покажіть на екрані, скільки людей відзначили кожну клітинку, без імен","«Скринька добрих слів» — Google Форма з полями «Кому» (можна «всьому класу») і «Добре слово»; відкрита до п’ятниці","Нагадайте про тест «Гаразд» до 06.11"],
+ b:"Добре слово можна надіслати вам у месенджер, коли з’явиться зв’язок.",
+ tl:["forms","canva","harazd"],sl:["harazd"],
+ fun:"«Ми не такі вже й різні. Перевір у бінго!»"},
+{p:1,g:2,n:"3",u:3,s:"Хм",nm:"Хімзагроза",pic:"🧪",m:"25",j:1,f:"🕹️ Онлайн-квест на час",
+ stu:"Агенти 9 класу, увага! Місія «90 секунд»: у хаті запахло газом, а може, з вулиці тягне їдким димом. Що робити першим? Кожне рішення на час. Перевіримо!",
+ todo:"Пройди квест разом із класом на уроці.",
+ plan:["Навчання з НС: дії при запаху невідомої хімічної речовини або газу","День щирих слів","Відкрито форму до Дня Гідності та Свободи (03–11.11)"],
+ tip:["Сцени квесту наближені до села: газовий балон чи котел, дим після обстрілу, запах біля поля","Квест у Genially: 4 сцени з вибором дій, на кожну 15 секунд","Розберіть алгоритм за «Абеткою безпеки» ДСНС і запишіть навчання в е-журнал"],
+ b:"Текстовий квест у Telegram: ви надсилаєте ситуацію, учні відповідають цифрою 1, 2 або 3.",
+ tl:["genially","dsns","gid"],sl:["dsns"],
+ fun:"«У тебе 90 секунд. Твої рішення рятують сім’ю»"},
+
+{p:1,g:3,n:"4",u:4,s:"Тб",nm:"Турбота",pic:"🫶",m:"15",j:1,f:"🫙 Віртуальна «Банка турботи»",
+ stu:"Сьогодні День турботи! Кинь у нашу онлайн-«Банку турботи» записку: як ти сьогодні подбав про когось. Без імен, тільки справа. Завтра на ранковому колі відкриємо банку разом!",
+ todo:"Не знаєш, що зробити? Крути колесо турботи!",
+ wheel:[["Нагодуй тварин", "Сьогодні нагодуй домашніх тварин замість когось із рідних."], ["Допоможи в господарстві", "Зроби одну справу по господарству, яку зазвичай роблять дорослі."], ["Зателефонуй бабусі", "Зателефонуй бабусі чи дідусеві просто так і запитай, як у них справи."], ["Поясни задачу другу", "Допоможи однокласнику з домашнім завданням у чаті."], ["Приготуй чай рідним", "Зроби чай чи перекус для рідних без нагадування."], ["Наноси води чи дров", "Допоможи принести воду чи дрова."]],
+ wt:"Колесо підказує справу турботи. Після неї учень кидає записку в «Банку турботи», тож результат ви побачите на дошці.",
+ plan:["День допомоги та турботи (Тиждень добрих справ)","Бесіда з БЖД «Поводження з електрообладнанням задля електробезпеки та енергозбереження»"],
+ tip:["На дошці Padlet класу створіть колонку «Банка турботи»: учні додають записки. Посилання надішліть у чат","Турбота про безпечний дім: «фото-полювання» на ризики — перевантажений подовжувач, павербанк на ліжку, свічка біля штори, генератор у приміщенні","Запишіть бесіду з електробезпеки в е-журнал; наступного ранку на ранковому колі прочитайте кілька записок"],
+ b:"Записку можна надіслати вам текстом у месенджер, коли з’явиться зв’язок.",
+ tl:["pad"],sl:["pad"],
+ fun:"«Одна записка — одна людина, якій сьогодні стало легше»"},
+
+{p:1,g:4,n:"5",u:5,s:"Вд",nm:"Вдячність",pic:"🎙️",m:"15",f:"🎧 Голосові листівки",
+ stu:"Сьогодні День вдячності. Запиши голосове на 30 секунд і подякуй людині, якій давно хотів сказати «дякую». Може, вона переслухає його десять разів!",
+ todo:"Кому дякуємо? Нехай підкаже колесо. Голосове надішли в класний чат або адресатові.",
+ wheel:[["Мамі або татові", "Запиши 30 секунд подяки мамі чи татові: за що ти вдячний їм саме зараз."], ["Бабусі чи дідусю", "Подякуй бабусі чи дідусеві: за смачне, за історії, за турботу."], ["Вчителю", "Подякуй учителеві, який тобі допоміг, навіть якщо це було давно."], ["Захисникові", "Запиши подяку захисникові чи захисниці: знайомому або всім, хто нас боронить."], ["Другові", "Подякуй другові за те, що він поруч."], ["Сусідові чи волонтеру", "Подякуй сусідові чи волонтеру, який допомагає людям у селі."]],
+ wt:"Колесо підказує, кому дякувати. Учні надсилають голосове адресатові або в класний чат; вам повідомляти, що випало, не потрібно.",
+ plan:["День милосердя та вдячності","Тренінг для педагогів «Невидимі бар’єри» (ЗДВР)"],
+ tip:["Голосове працює навіть на слабкому інтернеті","Наступного ранку на ранковому колі увімкніть 2–3 листівки (за згодою авторів)","Запропонуйте надіслати листівку адресатові"],
+ b:"Подяку можна написати від руки, сфотографувати й надіслати пізніше.",
+ fun:"«30 секунд твого голосу, які хтось переслухає десять разів»"},
+
+{p:1,g:5,n:"6",u:6,s:"Ад",nm:"Доброчесність",pic:"🕵️",m:"30",f:"🏁 Бліц-турнір у Kahoot",
+ stu:"П’ятниця — день добрих підсумків! Бліц-турнір «Людина чи ШІ?»: вгадай, хто написав текст. О 12:00 онлайн-екскурсія Музеєм грошей НБУ. А наприкінці я прочитаю добрі слова зі скриньки. Може, одне з них — про тебе!",
+ todo:"Введи PIN у Kahoot, який дасть учитель.",
+ plan:["Академічний бліц-турнір «Чесні знання — успішне майбутнє»","Година спілкування: Міжнародний день запобігання експлуатації довкілля під час війни","12:00 — віртуальна екскурсія Музеєм грошей НБУ (9-А, 9-Б)","День добрих підсумків","Інструктаж з академічної доброчесності під час онлайн-оцінювання"],
+ tip:["Турнір у Kahoot (безкоштовний план) або Google Формі-тесті: 8 питань, половина про пари текстів «учень чи ШІ»","Разом складіть «Кодекс класу» про чесні онлайн-тести і «підпишіть» його в Google Формі","Наприкінці зачитайте добрі слова зі скриньки; тихенько додайте свої для тих, кому ніхто не написав"],
+ b:"Питання турніру можна надіслати як опитування в Telegram.",
+ tl:["kahoot","forms"],sl:["kahoot"],
+ fun:"«Вгадай, хто це написав. Підказка: не завжди людина»"},
+
+{p:1,g:7,n:"9 кл",u:2,s:"Пф",nm:"Профорієнтація",pic:"🧭",m:"1×",w:"c",f:"🎤 Онлайн-гість і «Карта професій»",
+ stu:"Ким ти будеш через 5 років? Цього місяця до нас онлайн завітають гості з різних професій. Додай на «Карту професій класу» професію, яка тобі цікава!",
+ todo:"Підготуй одне питання для гостя.",
+ plan:["Година спілкування «Сучасні крила: світ аеророзвідки та військової логістики» (вчитель «Захисту України»)","Профорієнтаційна робота з 9 класом протягом місяця"],
+ tip:["Запросіть на 15 хвилин когось із батьків, випускника або фермера, агронома, ветеринара","Учні заздалегідь готують по одному питанню","«Карту професій» ведіть на дошці Padlet класу увесь місяць, зустріч із гостем — у Google Meet"],
+ b:"Запишіть розмову з гостем і надішліть у чат для тих, хто був без зв’язку.",
+ tl:["pad","meet"],sl:["pad"],
+ fun:"«Ким ти будеш через 5 років? Спитай того, хто вже там»"},
+
+{p:1,g:8,n:"02–06",u:2,s:"Дс",nm:"Добрі справи",pic:"💖",m:"5 дн",noble:1,f:"📮 Скринька на весь тиждень",
+ stu:"Тиждень добрих справ: 5 днів, 5 видів добра і скринька добрих слів. Пн — бінго спільного, Вт — щирі слова, Ср — турбота, Чт — вдячність, Пт — читаємо добрі слова!",
+ plan:["Тиждень добрих справ (02–06.11)","Пн — День добрих сердець, Вт — щирих слів, Ср — допомоги та турботи, Чт — милосердя та вдячності, Пт — добрих підсумків"],
+ tip:["Увесь тиждень відкрита анонімна «Скринька добрих слів»"],
+ fun:"«Добро заразне. Перевіримо за 5 днів»"},
+
+{p:2,g:1,n:"9",u:9,s:"Пш",nm:"Сільська дорога",pic:"🚜",m:"20",f:"✅ Вікторина «Вірю — не вірю»",
+ stu:"Тиждень безпеки на дорозі! У селі немає тротуарів і світлофорів, зате є трактори, велосипеди й темні узбіччя. Вікторина «Вірю — не вірю»: перевір, чи знаєш сільські правила дороги!",
+ todo:"Пройди вікторину у Wordwall за посиланням від учителя.",
+ plan:["Старт Тижня безпеки дорожнього руху"],
+ tip:["Питання про село: йти узбіччям назустріч транспорту, трактор і причіп, велосипед у темряві, дорога до шкільного автобуса","Хто помилився — пояснюємо, а не сваримо","Підсумок: 3 правила сільської дороги від класу"],
+ b:"Питання можна надіслати в Telegram як опитування.",
+ tl:["wordwall"],sl:["wordwall"],
+ fun:"«Тротуару немає. А правила є»"},
+
+{p:2,g:2,n:"10",u:10,s:"Св",nm:"Світловідбивач",pic:"✨",m:"15",f:"📸 Фоточелендж удома",
+ stu:"Челендж «Мене видно»! Вимкни світло в кімнаті і сфотографуй зі спалахом свій рюкзак чи куртку зі світловідбивачем. Фото тільки вдома, не на вулиці! Найкреативніший отримає титул «Зірка дороги».",
+ todo:"Додай фото на дошку челенджу до наступного уроку. «Зірку дороги» назвемо на ранковому колі.",
+ plan:["Тиждень безпеки дорожнього руху","Година спілкування «Правила поведінки в Інтернеті в умовах воєнного стану»"],
+ tip:["Чек-лист безпечного фото: без геотегу, вікон, краєвидів, техніки й наслідків обстрілів; закріпіть його в чаті","Фото лише в кімнаті: без вікон, вулиці й геотегів","Фото — на дошку Padlet класу, голосування реакціями в чаті","У кого немає світловідбивача — домовтеся з батьками про покупку чи саморобку"],
+ b:"Немає світла для фото? Опиши свій світловідбивач словами або намалюй його.",
+ tl:["pad"],sl:["pad"],
+ fun:"«У темряві тебе не видно. Доведи, що видно!»"},
+
+{p:2,g:3,n:"11",u:11,s:"Мп",nm:"Шлях до автобуса",pic:"🚌",m:"20",f:"🎨 Онлайн-комікс",
+ stu:"Стань автором коміксу! Твій герой іде до шкільного автобуса чи магазину. На шляху три пастки: темне узбіччя, навушники, трактор, що виїжджає з-за повороту. Намалюй 4 кадри, як він їх обходить.",
+ todo:"Комікс створи в Make Beliefs Comix (безкоштовно, без реєстрації) або в Canva. Без справжніх назв вулиць!",
+ plan:["Тиждень безпеки дорожнього руху","Виховна година «Дотримання правил безпеки під час повітряної тривоги, артобстрілу»","Останній день форми до Дня Гідності та Свободи"],
+ tip:["Найпростіше — Make Beliefs Comix: безкоштовно, без реєстрації, готові персонажі й хмаринки для тексту; у Canva теж є шаблони коміксів. П’ятий кадр — що робить герой, якщо в дорозі почалася тривога","Окремо: «Тривожна валізка за 3 хвилини» на камеру і правило двох стін удома (без показу укриття)","Жодних справжніх адрес, назв вулиць і орієнтирів","Нагадайте: сьогодні останній день форми до Дня Гідності"],
+ b:"Комікс можна намалювати олівцем на папері й сфотографувати.",
+ tl:["comix","canva","gid"],sl:["comix","canva"],
+ fun:"«Твій герой дійде додому. Покажи, як!»"},
+
+{p:2,g:4,n:"12",u:12,s:"Пл",nm:"Пильність",pic:"👀",m:"25",j:1,f:"🗂️ Гра-сортування у Wordwall",
+ stu:"Детективи, сьогодні справа серйозна. Вчимося розпізнавати вербувальників у переписках і пам’ятаємо: не знімаємо техніку, позиції й наслідки обстрілів. Знайди всі «червоні прапорці»!",
+ todo:"Сортуй переписки: безпечно, підозріло, небезпечно.",
+ plan:["Бесіда з БЖД: запобігання диверсійній діяльності та правила взаємодії з підозрілими особами в умовах воєнного стану"],
+ tip:["6 вигаданих переписок із «легким заробітком»: зняти колону, сфотографувати блокпост, передати пакунок","Алгоритм: не відповідати, зберегти, сказати дорослому","Запишіть бесіду в е-журнал"],
+ b:"Кейси можна надіслати текстом у чат і зібрати відповіді реакціями.",
+ tl:["wordwall"],sl:["wordwall"],
+ fun:"«Легкі гроші + незнайомець + “нікому не кажи” = червоний прапорець»"},
+
+{p:2,g:5,n:"13",u:13,s:"Дб",nm:"Доброта",pic:"🌍",m:"15",f:"💬 Флешмоб теплих повідомлень",
+ stu:"Всесвітній день доброти! Надішли тепле повідомлення людині поза класом. Кому? Нехай вирішить колесо! Потім поділись реакцією без імен.",
+ todo:"Крути колесо і пиши!",
+ wheel:[["Бабусі чи дідусю", "Напиши тепле повідомлення бабусі чи дідусеві."], ["Захисникові", "Напиши слова підтримки знайомому захисникові чи захисниці."], ["Колишньому вчителю", "Напиши вчителю, який навчав тебе раніше: чому ти його пам’ятаєш."], ["Тренеру", "Напиши тренеру чи керівнику гуртка, за що ти йому вдячний."], ["Другові, який виїхав", "Напиши другові, який зараз в іншому місці: що ти за ним сумуєш."], ["Волонтерові", "Напиши волонтерові чи сусідові, який допомагає людям."]],
+ wt:"Колесо підказує адресата. Учні ставлять у чаті реакцію ✅ «надіслав»; деталі не потрібні.",
+ plan:["Всесвітній день доброти: акція"],
+ tip:["Покрутіть колесо разом на уроці","Зберіть реакції в альбом «Відповіді, які нас зворушили»","Підсумуйте добрі справи двох тижнів"],
+ b:"Повідомлення можна написати заздалегідь і надіслати, коли з’явиться зв’язок.",
+ fun:"«Одне повідомлення. Одна людина, якій сьогодні кращий день»"},
+
+{p:2,g:7,n:"9 кл",u:9,s:"Ям",nm:"Ярмарок шляхів",pic:"🎪",m:"1×",w:"c",f:"🎪 Онлайн-ярмарок «Куди після 9-го?»",
+ stu:"Наступного року кожен із вас обиратиме, де навчатися далі. Влаштуймо онлайн-ярмарок! Кожен «відкриває свій намет»: досліджує один ліцей чи коледж і за 1 хвилину презентує його класу й батькам. Що там вивчають? Чи є гуртожиток? Коли день відкритих дверей?",
+ todo:"Обери тип закладу в колесі або запропонуй свій.",
+ wheel:[["Профільний ліцей", "Знайди один профільний ліцей і з’ясуй: які профілі там є, як вступити, чи є гуртожиток."], ["Аграрний коледж", "Знайди аграрний коледж: що там вивчають, ким можна стати, як вступити."], ["Медичний коледж", "Знайди медичний коледж: які спеціальності, скільки років навчання."], ["IT-коледж", "Знайди коледж з IT: що там програмують, які вступні вимоги."], ["Педагогічний коледж", "Знайди педагогічний коледж: ким там готують, де потім працювати."], ["Технічний коледж", "Знайди технічний коледж: які професії, чи є практика."]],
+ wt:"Колесо визначає, який тип закладу досліджує учень. Попросіть написати вам, що випало, щоб на ярмарку не було двох однакових «наметів».",
+ plan:["Участь у майстер-класах, днях відкритих дверей закладів вищої освіти та фахових коледжів","Розміщення матеріалів для батьків і учнів на сайті школи, у групі ФБ"],
+ tip:["Кожен учень готує картку закладу в Canva за одним шаблоном: що вивчають, як вступити, гуртожиток, день відкритих дверей","Запросіть батьків на 20-хвилинний онлайн-ярмарок: учні презентують, батьки ставлять питання","Картки зберіть в альбом і розмістіть для батьків у групі"],
+ b:"Картки можна надіслати в чат, а батьки переглянуть, коли буде зв’язок.",
+ tl:["canva","pad","meet"],sl:["canva"],
+ fun:"«Твій намет на ярмарку — твій можливий шлях»"},
+{p:2,g:8,n:"09–13",u:9,s:"Др",nm:"Дорожній рух",pic:"🚜",m:"5 дн",noble:1,f:"🛣️ Тиждень сільської дороги",
+ stu:"Тиждень безпеки на сільській дорозі: вікторина «Вірю — не вірю», челендж зі світловідбивачами, комікс про шлях до автобуса і детективи проти вербувальників.",
+ plan:["Тиждень безпеки дорожнього руху (09–13.11)","За підсумками тижня ліцей готує наказ"],
+ tip:["Зберіть фото й комікси тижня для звіту"],
+ fun:"«Будь помітним, будь уважним»"},
+
+{p:3,g:1,n:"16",u:16,s:"Тл",nm:"Толерантність",pic:"📚",m:"30",f:"📖 «Жива бібліотека» в Zoom",
+ stu:"Сьогодні ти можеш стати книгою! 3–4 учні розповідають про своє хобі, родинну традицію чи улюблену справу в господарстві, а інші «беруть книгу почитати» в онлайн-кімнаті. Камеру можна не вмикати!",
+ todo:"Не знаєш, про що розповісти? Колесо підкаже тему!",
+ wheel:[["Моє хобі", "Розкажи 2 хвилини про своє хобі: як почав і що в ньому найцікавіше."], ["Родинна традиція", "Розкажи про одну традицію твоєї родини: свято, страву, звичай."], ["Моя мрія", "Розкажи про мрію, якою готовий поділитися."], ["Улюблена книга чи фільм", "Перекажи без спойлерів улюблену книгу чи фільм і поясни, чому радиш."], ["Мій талант", "Розкажи, що в тебе виходить найкраще, навіть якщо це дрібниця."], ["Мій улюбленець", "Розкажи про свою тварину: ім’я, характер, смішну історію."]],
+ wt:"Колесо підказує тему для учня-«книги». Учні, які погодилися бути «книгами», пишуть вам свою тему, щоб ви розподілили кімнати.",
+ plan:["День толерантності: меседж «Мистецтво жити разом»","Старт Тижня дитинства та гідності"],
+ tip:["Заздалегідь домовтеся з 3–4 учнями-«книгами»","Окремі кімнати в Zoom чи Meet на 5 хвилин; камери за бажанням","Наприкінці кожен називає одну думку, яка його здивувала"],
+ b:"«Книга» може записати голосове на 2 хвилини, а клас слухає його в чаті.",
+ tl:["meet","dyt"],
+ fun:"«Сьогодні твій однокласник — книга, яку ти ще не читав»"},
+
+{p:3,g:2,n:"17",u:17,s:"Лг",nm:"Без вейпу",pic:"🚭",m:"20",f:"🔍 Розслідування реклами",
+ stu:"Реклама вейпів обіцяє «смак манго» і «стиль». Сьогодні з’ясуємо, що вона приховує, і зробимо чесну рекламу навпаки!",
+ todo:"Створи в Canva «чесний» постер про вейп.",
+ plan:["Всесвітній день боротьби проти хвороб легенів: інфодайджест «Життя без вейпінгу» (медсестра)","Цикл занять медсестри з профілактики ГРВІ та грипу","Засідання НМР №2 «Медіаграмотність…»"],
+ tip:["Покажіть 2–3 приклади реклами: кольори, смаки, блогери","Розберіть, на які почуття вона тисне","Учні роблять «чесну рекламу», потім дайджест медсестри","Наприкінці 3-хвилинна вікторина «Міф чи правда?» про застуду в LearningApps"],
+ b:"Постер можна намалювати на папері й сфотографувати.",
+ tl:["canva","learningapps"],sl:["canva"],
+ fun:"«Смак манго. Ціна — твоє здоров’я. Тепер чесно»"},
+
+{p:3,g:3,n:"18",u:18,s:"ШІ",nm:"Машина часу",pic:"🤖",m:"30",f:"🎙️ Інтерв’ю-реконструкція",
+ stu:"Сьогодні ти журналіст, а твій співрозмовник — 2013 рік. Склади з ШІ 5 питань учаснику Майдану, а відповіді знайди в справжніх спогадах. Потім читаємо «інтерв’ю» по ролях!",
+ todo:"Справжні спогади шукай на сайті Музею Революції Гідності.",
+ plan:["Фестиваль цифрових ідей «Мій успішний урок із ШІ» (18 і 20.11)","Заходи до Дня Гідності та Свободи: перегляд і обговорення кіно в стилі TED"],
+ tip:["ШІ допомагає скласти питання, але не відповідає на них","Відповіді учні шукають у спогадах і документах","Цей захід можна показати на Фестивалі цифрових ідей"],
+ b:"Уривки спогадів заздалегідь надішліть у чат текстом.",
+ tl:["maidan"],sl:["maidan"],
+ fun:"«Ти журналіст. Твій співрозмовник — 2013 рік»"},
+
+{p:3,g:4,n:"19",u:19,s:"Зн",nm:"Захист",pic:"🛡️",m:"15",f:"🪪 Картка-щит у телефоні",
+ stu:"Сьогодні створимо картку-щит: куди звернутися, якщо тобі погано чи страшно. Збережи її в телефоні. Дитяча лінія: 116 111.",
+ todo:"Зроби картку в Canva і збережи на телефон.",
+ plan:["Всесвітній день запобігання насильству над дітьми: інформаційний дайджест"],
+ tip:["Контакти: 116 111 (лінія для дітей і молоді), 0 800 500 335 (протидія насильству)","Відкрийте анонімну Google Форму «Мені потрібна розмова»","Матеріали для дайджесту є на сайті «Ла Страда»"],
+ b:"Номери можна записати в блокнот або на внутрішній бік обкладинки щоденника.",
+ tl:["lastrada","forms","canva","qr"],sl:["lastrada","canva"],
+ fun:"«Одна картка в телефоні, яка може знадобитися в найважчий день»"},
+
+{p:3,g:5,n:"20",u:20,s:"Гд",nm:"Гідність",pic:"🎗️",m:"25",f:"☁️ Жива хмара слів",
+ stu:"Завтра День Гідності та Свободи. Напиши одне слово: що для тебе гідність? З ваших слів виросте наша онлайн-«Стрічка свободи»!",
+ todo:"Пиши слово в Mentimeter за кодом від учителя.",
+ plan:["Всесвітній день дитини","Арт-інсталяція «Стрічка свободи», майстер-клас «Оберіг Гідності»","Дедлайн конкурсу символу солідарності з родинами полонених і зниклих безвісти","Творча майстерня «Моя Україна — велика держава»"],
+ tip:["Хмара слів у Mentimeter або AnswerGarden (повністю безкоштовно, без реєстрації) стає «Стрічкою свободи»: зробіть скрін","Майстер-клас «Оберіг Гідності» онлайн: стрічка з підручних матеріалів удома","Сьогодні дедлайн творчого конкурсу символу солідарності","Онлайн-виставка «Моя Україна» на дошці Padlet класу: малюнки, вірші, поробки (без фото краєвидів, за якими можна впізнати місце)"],
+ b:"Слово можна надіслати в чат, а хмару складете пізніше.",
+ tl:["menti","answer","pad","symb","dyt"],sl:["menti","answer"],
+ fun:"«Одне слово від кожного — одна стрічка від класу»"},
+
+{p:3,g:6,n:"21",u:21,s:"Гс",nm:"Гідність і Свобода",pic:"🇺🇦",m:"сб",cls:"dig",f:"📌 Допис у класному каналі",
+ stu:"Сьогодні День Гідності та Свободи. Якщо хочеш, поділись у класному каналі нашою «Стрічкою свободи» або своїм словом про гідність.",
+ plan:["День Гідності та Свободи"],
+ tip:["Субота: окремий захід не потрібен"],
+ fun:"«Гідність — це коли ти маєш голос»"},
+
+{p:3,g:7,n:"9 кл",u:16,s:"Кч",nm:"Капсула часу",pic:"⏳",m:"1×",w:"c",f:"⏳ Капсула часу «5 → 9» у Padlet",
+ stu:"Пам’ятаєте нашу дошку Padlet з 5 класу? Дехто з вас тоді вже щось написав! Відкриймо її: про що ви думали в 10 років? А тепер напишіть відповідь собі-п’ятикласнику і одне побажання однокласникам. Де б ми не навчалися наступного року, ця капсула залишиться нашою.",
+ todo:"Прочитай записи з 5 класу і додай свій стікер-відповідь у нову колонку.",
+ plan:["Індивідуальні консультації з учнями з низькою мотивацією (разом із психологом)","Зустрічі з батьками учнів, які потребують підвищеної уваги"],
+ tip:["Відкрийте на екрані дошку Padlet з 5 класу і прочитайте 3–4 записи (за згодою авторів)","Додайте колонку «Від 9-го класу»: лист собі-п’ятикласнику і побажання класу. Хто не писав у 5 класі, теж додає запис","Учнів, які хвилюються через зміни після 9 класу, запросіть на розмову з психологом; капсула — добрий початок такої розмови","Наприкінці року надішліть посилання на капсулу кожному учню, навіть якщо клас розійдеться по різних закладах"],
+ b:"Запис можна надіслати вам текстом чи голосовим, а ви додасте його на дошку.",
+ tl:["padlet"],sl:["padlet"],
+ fun:"«Привіт від тебе десятирічного»"},
+{p:3,g:8,n:"16–20",u:16,s:"Дт",nm:"Дитинство і гідність",pic:"🎗️",m:"5 дн",noble:1,f:"🗣️ Тиждень голосів",
+ stu:"Тиждень голосів: жива бібліотека, інтерв’ю з минулим, картка-щит і «Стрічка свободи». Цього тижня кожен із вас скаже щось своє.",
+ plan:["Тиждень дитинства та гідності (16–20.11)","Заходи до Дня Гідності та Свободи протягом III тижня"],
+ tip:["Форма Тижня дитинства та гідності — у посиланні"],tl:["dyt"],
+ fun:"«Твій голос важливий»"},
+
+{p:4,g:1,n:"23",u:23,s:"Мж",nm:"Межі",pic:"🚥",m:"20",f:"🚦 Гра-світлофор у чаті",
+ stu:"Гра «Світлофор меж»! Колесо обирає ситуацію, а ти ставиш реакцію в чаті: 🟢 норма, 🟡 сумнівно, 🔴 так не можна. Де закінчується жарт і починається образа?",
+ todo:"Крути колесо і голосуй світлофором!",
+ wheel:[["Дражнять твій голос", "Однокласники перекривляють, як ти говориш на уроці. Це норма, сумнівно чи порушення меж?"], ["Пересилають твоє фото", "Твоє фото пересилають в інший чат без дозволу. Норма, сумнівно чи порушення?"], ["«Смішні» стікери з тобою", "З твого фото зробили стікер і кидають у чат. Як ти оцінюєш?"], ["«Не ображайся, це жарт»", "Тебе образили і кажуть: «Не ображайся, це ж жарт». Норма чи ні?"], ["Тебе не кличуть у групу", "Створили чат класу без тебе. Як ти оцінюєш?"], ["Пишуть тобі вночі", "Знайомий з інтернету пише тобі о другій ночі й просить фото. Як оцінюєш?"]],
+ wt:"Колесо обирає ситуацію для всього класу. Учні ставлять реакцію 🟢 🟡 🔴, а ви ведете обговорення за кількістю реакцій.",
+ plan:["Старт Тижня проти насильства"],
+ tip:["Реакції в чаті працюють навіть на слабкому інтернеті","Найбільше говоріть про «жовті» випадки","Підсумок: «Жарт чи образа? Вирішує той, з кого жартують»"],
+ b:"Ситуації можна надіслати текстом і зібрати реакції пізніше.",
+ fun:"«Жарт чи образа? Вирішує той, з кого жартують»"},
+
+{p:4,g:2,n:"24",u:24,s:"Сд",nm:"Свідок",pic:"🦸",m:"25",f:"📻 Радіоп’єса в голосових",
+ stu:"Сьогодні ти можеш стати супергероєм без плаща. Колесо роздасть ролі, і ми запишемо радіоп’єсу голосовими: спершу свідки мовчать, потім діють разом.",
+ todo:"Дізнайся свою роль у колесі!",
+ wheel:[["Кривдник", "Ти читаєш репліки того, хто кривдить, за сценарієм. Це роль у грі, а не ти."], ["Постраждалий", "Ти читаєш репліки того, кого кривдять, за сценарієм."], ["Свідок 1", "У першому фіналі ти мовчиш, у другому пишеш у чат: «Досить, це не смішно»."], ["Свідок 2", "У другому фіналі ти пишеш постраждалому в особисті слова підтримки."], ["Свідок 3", "У другому фіналі ти кажеш про ситуацію дорослому, наприклад учителю."], ["Оповідач", "Ти читаєш слова автора між репліками героїв."]],
+ wt:"Колесо роздає ролі в радіоп’єсі. Учні пишуть вам, яка роль випала; ви надсилаєте кожному його репліки зі сценарію.",
+ plan:["Тиждень проти насильства: бесіди за планом тижня"],
+ tip:["Сценарій на картці: вигадана ситуація в чаті класу","Ролі й репліки роздайте напередодні; на уроці кожен по черзі записує свою репліку голосовим просто в чат, і п’єса звучить одразу","Порівнюємо два фінали і складаємо 3 дії свідка"],
+ b:"Репліки можна написати текстом, а прочитаєте ви на уроці.",
+ fun:"«Мовчання — теж вибір. Обери інший»"},
+
+{p:4,g:3,n:"25",u:25,s:"16",nm:"16 днів",pic:"🗓️",m:"15",f:"🧩 Естафета карток у каналі",
+ stu:"Стартує акція «16 днів проти насильства»! У кожного буде свій день і своя картка-порада для класного каналу. Свій день обери в колесі!",
+ todo:"Крути колесо і запиши свою дату.",
+ wheel:[["25.11", "25.11 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["26.11", "26.11 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["27.11", "27.11 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["28.11", "28.11 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["29.11", "29.11 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["30.11", "30.11 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["1.12", "1.12 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["2.12", "2.12 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["3.12", "3.12 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["4.12", "4.12 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["5.12", "5.12 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["6.12", "6.12 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["7.12", "7.12 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["8.12", "8.12 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["9.12", "9.12 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."], ["10.12", "10.12 — твій день: опублікуй у класному каналі картку-пораду проти насильства. Напиши вчителю, що тобі випала ця дата."]],
+ wt:"Колесо розподіляє дати акції. Учні пишуть вам дату, що випала, а ви складаєте графік публікацій карток до 10 грудня.",
+ plan:["Старт акції «16 днів проти насильства» (25.11–10.12)","Семінар-практикум для вчителів з академічної доброчесності"],
+ tip:["Розподіліть 16 днів через колесо","Ідеї для карток є в посібнику «Ла Страда»","Публікуйте по одній картці щодня до 10 грудня"],
+ b:"Картку можна надіслати вам заздалегідь, а ви опублікуєте в потрібний день.",
+ tl:["lsguide","canva"],
+ fun:"«16 днів. 16 голосів. Один клас»"},
+
+{p:4,g:4,n:"26",u:26,s:"Кл",nm:"Колоски",pic:"🌾",m:"30",f:"🎙️ Усна історія родини",
+ stu:"Сьогодні ми дослідники пам’яті. Розпитай бабусю, дідуся чи сусідів: що в нашому селі пам’ятають про 1932–1933 роки? Запиши кілька речень. Разом складемо онлайн-«Стіну пам’яті» і колаж «П’ять колосків».",
+ todo:"Розпитай рідних після уроків і до п’ятниці додай на «Стіну пам’яті» спогад або факт з джерела.",
+ plan:["Заходи до Дня пам’яті жертв Голодомору (до 28.11): акція-колаж «П’ять колосків»","Дослідницький хакатон «Карта пам’яті мого краю»"],
+ tip:["«Стіна пам’яті» на дошці Padlet класу: спогади родин і факти з Музею Голодомору","Кожен факт із джерелом; родинні спогади — за згодою","Тон спокійний і шанобливий, без ігрових елементів"],
+ b:"Спогад можна записати голосовим або в зошит і надіслати пізніше.",
+ tl:["pad","holod"],sl:["pad","holod"],
+ fun:"«Пам’ять — це те, що ми зберігаємо разом»"},
+
+{p:4,g:5,n:"27",u:27,s:"Бт",nm:"Батьки",pic:"👨‍👩‍👧",m:"20",f:"🎲 Онлайн-гра «Вгадай слово»",
+ stu:"Сьогодні ваші батьки складають іспит! Гра «Вгадай слово»: чи знають вони, що таке «крінж» і «вайб»? Підготуйте словник свого сленгу. А завтра о 16:00 хвилина мовчання.",
+ todo:"Додай 2 слова у словник класу.",
+ plan:["Інтерактивна зустріч «Сучасні підлітки: інструкція для розуміння» (психолог + класні керівники)","Нагадати учням про 28.11, 16:00"],
+ tip:["Гра у Wordwall «Вгадай слово» зі словника учнів","Почніть зустріч зі сміху, далі психолог веде розмову про мотивацію","Нагадайте про 28.11: хвилина мовчання, «Запали свічку пам’яті»"],
+ b:"Словник надішліть у батьківський чат як вікторину-опитування.",
+ tl:["wordwall"],
+ fun:"«Батьки, перевірте себе: що означає “крінж”?»"},
+
+{p:4,g:6,n:"28",u:28,s:"Пм",nm:"Пам’ять",pic:"🕯️",m:"16:00",cls:"memo",f:"🕯️ Акція «Запали свічку пам’яті»",
+ stu:"Сьогодні День пам’яті жертв Голодомору. О 16:00 зупинімося на хвилину мовчання і запалімо свічку вдома.",
+ plan:["День пам’яті жертв Голодомору","16:00 — хвилина мовчання","Акція «Запали свічку пам’яті»","Колоски з паперу, інформаційна п’ятихвилинка «Скорботна свічка пам’яті»"],
+ tip:["Тиха дата без ігрових форматів","Охочі діляться фото свічки крупним планом: без облич, вікон і краєвиду за ними"],
+ tl:["holod"],
+ fun:"«Світло пам’яті в кожній оселі»"},
+
+{p:4,g:7,n:"9 кл",u:23,s:"Кн",nm:"Конкурси",pic:"🏆",m:"1×",w:"c",f:"🏅 Онлайн-«Стіна досягнень»",
+ stu:"Хто хоче проявити себе? Онлайн-конкурс «МАН-Юніор Ерудит» і олімпіада з мінної безпеки чекають! Кожен учасник отримає бейдж на «Стіні досягнень» класу.",
+ plan:["Конкурс «МАН-Юніор Ерудит» (листопад–грудень)","Всеукраїнська олімпіада з мінної небезпеки (12–14 і 15–17 років)","Творчий конкурс символу солідарності з родинами Захисників (до 20.11)"],
+ tip:["Мінна безпека особливо важлива для села біля зони бойових дій","«Стіну досягнень» ведіть у закріпленому пості","Раз на тиждень відзначайте нових учасників"],
+ tl:["man","mine1","mine2"],sl:["man","mine2"],
+ fun:"«Участь — уже досягнення. Тут це видно всім»"},
+
+{p:4,g:8,n:"23–27",u:23,s:"Пв",nm:"Проти насильства",pic:"🦸",m:"5 дн",noble:1,f:"💪 Тиждень сміливості",
+ stu:"Тиждень сміливості: світлофор меж, радіоп’єса про силу свідка, 16 карток проти насильства і стіна пам’яті.",
+ plan:["Тиждень проти насильства: заради дитинства та гідності (23–27.11)","Акція «16 днів проти насильства» з 25.11"],
+ tip:["Матеріали для акції є в посібнику «Ла Страда»"],tl:["lsguide"],
+ fun:"«Сміливість — це коли ти не мовчиш»"},
+
+{p:5,g:1,n:"30",u:30,s:"Пд",nm:"Підсумки",pic:"🎬",m:"15",f:"🏆 Онлайн-церемонія «Оскар»",
+ stu:"Церемонія «Оскар листопада»! Голосуй за найкращий захід місяця, найдобрішу справу і найсміливіший виступ. А ще ми назвемо Алхіміків листопада — усіх, хто хоча б раз відгукнувся цього місяця!",
+ todo:"Голосуй у Mentimeter і чекай на свій титул Алхіміка!",
+ plan:["Нарада при директорові (олімпіади, профілактика правопорушень)","Дедлайн анкетування щодо корупції (учні й батьки)","Початок Тижня ЗСУ (30.11–04.12)"],
+ tip:["Номінації: найкращий захід, найдобріша справа, найсміливіший виступ","Номінація «Алхімік листопада»: усі, хто хоча б раз відгукнувся (реакція, скринька, опитування); список складіть за чатами місяця і вручіть кожному цифровий диплом у Canva","Сьогодні дедлайн анкетування"],
+ b:"Голосування можна провести опитуванням у Telegram.",
+ tl:["menti"],sl:["menti"],
+ fun:"«And the Oscar goes to… 9 клас!»"},
+
+{p:5,g:7,n:"9 кл",u:30,s:"Ак",nm:"Анкета",pic:"📋",m:"до 30",w:"c",f:"📈 Прогрес-бар у каналі",
+ stu:"Остання справа місяця: заповни анкету і попроси батьків теж. Коли заповнять усі, клас сам обере тему наступної години спілкування!",
+ plan:["Анкетування учнів і батьків щодо запобігання та виявлення корупції (до 30.11)"],
+ tip:["Ведіть у каналі смужку «Заповнили N з 25»","Бонус для класу: вільна тема години спілкування"],
+ tl:["forms"],
+ fun:"«Ще 3 анкети — і тему обираємо ми!»"},
+
+{p:5,g:8,n:"30.11",u:30,s:"Зу",nm:"Тиждень ЗСУ",pic:"⭐",m:"→ гр",noble:1,f:"➡️ Перехід до грудня",
+ stu:"Попереду Тиждень ЗСУ і грудень — місяць військово-патріотичного виховання. Скоро нова гра!",
+ plan:["Тиждень ЗСУ (30.11–04.12), продовження в грудні"],
+ tip:["У грудні — Місячник військово-патріотичного виховання"],
+ fun:"«Далі буде…»"}
+];
+
+const F=[];
+
+/* тихий варіант для мовчазного класу */
+const Q={
+ "Ст":"Замість опитування — реакція 🍁 під постом з таблицею: «я в грі».",
+ "Сс":"Бінго проходять мовчки: учні ставлять галочки у формі, а на екрані видно лише загальні цифри.",
+ "Хм":"Сцени озвучуєте ви, учні відповідають цифрою в чат або в опитуванні.",
+ "Тб":"Записки анонімні. Якщо їх мало, додайте кілька своїх прикладів, щоб «банка» не була порожньою.",
+ "Вд":"Замість голосового — текстовий шаблон «Дякую тобі за…», який лишається доповнити кількома словами.",
+ "Ад":"У Kahoot грають під нікнеймами. Слова зі скриньки зачитуєте ви, без імен авторів.",
+ "Пф":"Питання гостю учні пишуть вам заздалегідь, а ви ставите їх від імені класу.",
+ "Дс":"Увесь тиждень можна брати участь без мікрофона: форми, реакції, опитування.",
+ "Пш":"Вікторина індивідуальна, результати не показуйте поіменно.",
+ "Св":"Хто не хоче викладати фото, просто голосує за найкращий світловідбивач.",
+ "Мп":"Комікс можна зробити без тексту або в парі: один малює, інший підписує.",
+ "Пл":"Сортування в Wordwall кожен робить сам; обговорення через опитування «А як би вчинив ти?».",
+ "Дб":"Повідомлення нікому не треба показувати; достатньо реакції ✅ «надіслав».",
+ "Ям":"Працюють у парах: один робить картку, інший озвучує. Або картку зачитуєте ви.",
+ "Др":"Цього тижня все можна зробити індивідуально, без виступів.",
+ "Тл":"Першою «книгою» станьте ви. «Книгою» може бути й голосовий запис чи текст на дошці Padlet класу, а питання «читачі» пишуть у чат.",
+ "Лг":"Постер кожен робить сам; обговорення реклами — опитування з готовими варіантами «на що тисне реклама».",
+ "ШІ":"Ролі в «інтерв’ю» читають охочі, інші лише пишуть питання.",
+ "Зн":"Картку кожен робить для себе, нічого не показуючи класу. Анонімна форма — головний канал.",
+ "Гд":"Анонімна хмара слів — найлегший формат для мовчазного класу.",
+ "Гс":"Достатньо реакції під дописом.",
+ "Кч":"Записи на дошці можна залишати без імені.",
+ "Дт":"Голос можна подати й текстом.",
+ "Мж":"Реакції-світлофори — мовчазний формат. Обговорюйте лише ситуації, без питань «а ти чому так?».",
+ "Сд":"Ролі лише для охочих; інші стають «глядачами» і голосують за кращий фінал.",
+ "16":"Картку можна зробити в парі або взяти готовий шаблон і додати один рядок від себе.",
+ "Кл":"Спогад учні надсилають вам приватно, а ви розміщуєте його без імені.",
+ "Бт":"Слова для словника учні надсилають вам анонімно через форму.",
+ "Пм":"Участь особиста, без звітування.",
+ "Кн":"Бейдж ставите ви; учневі не треба писати про себе.",
+ "Пв":"Сміливість маленькими кроками: навіть реакція — це вже голос.",
+ "Пд":"Голосування анонімне в Mentimeter.",
+ "Ак":"Анкета анонімна."
+};
+E.forEach(e=>{if(Q[e.s])e.q=Q[e.s]});
+
+/* готові ситуації для обговорення: t назва, s ситуація, a відповідь або висновок, q питання до класу */
+const CS={
+ "Сс":{h:"Картка «Бінго спільного» (9 клітинок)",list:["У мене є кіт або пес","Люблю готувати","Сьогодні встав до 7 ранку","Маю брата чи сестру","Допомагаю по господарству","Люблю малювати","Слухаю музику щодня","Мрію подорожувати","Не люблю зиму"],
+  cases:[{t:"Що обговорити після бінго",s:"Покажіть на екрані, скільки людей відзначили кожну клітинку.",q:["Яка клітинка виявилась найпопулярнішою?","Що вас здивувало: з ким у вас більше спільного, ніж ви думали?"]}]},
+ "Хм":{h:"4 сцени для квесту «90 секунд»",cases:[
+  {t:"1. Запах газу в хаті",s:"Увечері на кухні відчутно пахне газом. Варіанти: а) увімкнути світло, щоб подивитися; б) перекрити кран, відчинити вікна, вийти з хати і зателефонувати 104; в) запалити сірник біля плити.",a:"Правильно: б. Будь-яка іскра (вимикач, сірник) може спричинити вибух. 104 — аварійна газова служба."},
+  {t:"2. Їдкий дим після обстрілу",s:"Після вибуху неподалік з вулиці тягне їдким димом, щиплять очі. Варіанти: а) вийти подивитися; б) зачинити вікна й двері, щілини закрити вологою тканиною, телефонувати 101 і слухати оголошення; в) відчинити вікна, щоб провітрити.",a:"Правильно: б. Не виходити й не відчиняти вікон, поки немає вказівок."},
+  {t:"3. Дивний запах біля поля",s:"Дорогою до автобуса ти бачиш біля поля пошкоджену бочку чи уламок, різко пахне хімією. Що робити?",a:"Не підходити й не торкатися. Відійти вбік від напрямку вітру, сказати дорослим, зателефонувати 101."},
+  {t:"4. Сигнал «Увага всім» про викид",s:"Оголосили викид хлору або аміаку. Куди йти: вгору чи вниз?",a:"Хлор важчий за повітря — вище, подалі від низин і підвалів. Аміак легший — нижче. Ніс і рот закрити вологою тканиною."}],
+  q:["Яке рішення було найважчим за 15 секунд?","Які номери варто записати в телефон уже сьогодні?"]},
+ "Ад":{h:"Два тексти для гри «Людина чи ШІ?»",cases:[
+  {t:"Текст А",s:"«Осінь — чудова пора року. Листя змінює колір, повітря стає свіжим, а природа готується до зими. Це час для роздумів і затишку.»",a:"Імовірно ШІ: гладко, правильно, але загальними словами, без жодної особистої деталі."},
+  {t:"Текст Б",s:"«Восени в нас пахне димом і яблуками. Учора ми з дідом складали дрова, і я знайшов їжака під повіткою. Назвав його Колючкою.»",a:"Імовірно людина: конкретні деталі, свій досвід, ім’я для їжака."}],
+  q:["За якими ознаками ви вгадували?","Коли ШІ допомагає, а коли це вже списування?"]},
+ "Пш":{h:"6 тверджень для вікторини «Вірю — не вірю»",cases:[
+  {t:"1",s:"Де немає тротуару, іти треба узбіччям назустріч транспорту.",a:"Вірю. Так ти бачиш машину, а водій бачить тебе."},
+  {t:"2",s:"Увечері водій і так побачить мене у світлі фар, світловідбивач не потрібен.",a:"Не вірю. Без світловідбивача пішохода в темному одязі водій помічає занадто пізно."},
+  {t:"3",s:"Трактор із причепом можна швидко обійти на повороті.",a:"Не вірю. Причіп може занести, а водій трактора тебе не бачить."},
+  {t:"4",s:"Для велосипеда ввечері досить ліхтарика в телефоні.",a:"Не вірю. Потрібні фара спереду і червоний ліхтар чи катафот ззаду."},
+  {t:"5",s:"Шкільний автобус треба чекати якомога далі від проїжджої частини.",a:"Вірю."},
+  {t:"6",s:"У навушниках на дорозі можна, якщо музика тиха.",a:"Не вірю. Ти не почуєш машину чи трактор позаду."}]},
+ "Мп":{h:"Ситуація про тривогу в дорозі",cases:[
+  {t:"Тривога застала дорогою до автобуса",s:"Ти йдеш узбіччям, укриття поруч немає, лунає сирена або чути вибухи.",a:"Лягти на землю в заглибині (канава, кювет), подалі від дороги й будівель зі склом, закрити голову руками. Після — повідомити рідним, що ти в безпеці."}],
+  q:["Де на твоєму шляху можна сховатися? (Не називайте місця вголос, лише подумки.)","Кому ти пишеш першим після тривоги?"]},
+ "Пл":{h:"6 переписок для сортування",cases:[
+  {t:"1",s:"«Хочеш легко заробити 500 грн? Просто сфотографуй, де в селі стоїть військова техніка.»",a:"Небезпечно. Це злочин, за нього настає кримінальна відповідальність навіть для підлітків."},
+  {t:"2",s:"«Треба передати пакунок знайомому, оплата одразу. Тільки нікому не кажи.»",a:"Небезпечно. «Нікому не кажи» — головний червоний прапорець."},
+  {t:"3",s:"«Ти класно граєш! Давай у Discord, тільки скинь, у якому ти селі.»",a:"Підозріло. Незнайомцю не можна повідомляти, де ти живеш."},
+  {t:"4",s:"Однокласник: «Скинь, будь ласка, домашку з алгебри.»",a:"Безпечно."},
+  {t:"5",s:"«Ми з волонтерського фонду, напиши адресу, привеземо подарунок.»",a:"Підозріло. Перевірити разом із дорослими, нічого не надсилати самому."},
+  {t:"6",s:"«Пиши, коли пролетить ракета чи куди впало. Платимо за кожне повідомлення.»",a:"Небезпечно. Це коригування ударів, тяжкий злочин."}],
+  q:["Які слова повторюються в небезпечних повідомленнях?","Що робиш першим: відповідаєш, блокуєш чи робиш скріншот і кажеш дорослому?"]},
+ "Тл":{h:"Питання, які «читачі» ставлять «книзі»",list:["Як ти почав цим займатися?","Що в цьому найцікавіше?","Чого б ти навчив нас за 5 хвилин?","Що тебе в цьому найбільше дивує?"]},
+ "Лг":{h:"3 прийоми реклами вейпу для розбору",cases:[
+  {t:"Упаковка як цукерка",s:"Яскраві кольори, смаки «манго», «жуйка», «кавун».",a:"Розраховано на дітей і підлітків: виглядає як солодощі, а не як нікотин."},
+  {t:"Блогер у хмарі пари",s:"Популярна людина з вейпом на відео виглядає вільною і стильною.",a:"Продають образ, а не продукт. Про залежність і кашель мовчать."},
+  {t:"Акція «2+1»",s:"«Купи два — третій у подарунок».",a:"Мета — щоб ти купував більше й частіше."}],
+  q:["На яке почуття тисне кожен прийом?","Як би виглядала чесна реклама?"]},
+ "ШІ":{h:"Приклади питань учаснику Майдану",list:["Що змусило вас піти на Майдан?","Що ви взяли з собою з дому?","Що вам найбільше запам’яталося?","Чого ви боялися і що допомагало?","Що б ви сказали нам, сьогоднішнім 15-річним?"]},
+ "Зн":{h:"Ситуація для обговорення",cases:[
+  {t:"Подруга просить мовчати",s:"Подруга пише тобі ввечері: вдома її кривдять, але просить нікому не казати.",a:"Підтримати й не засуджувати. Сказати, що мовчати тут не можна: допомогти їй звернутися до дорослого, якому вона довіряє, або на лінію 116 111. Якщо є загроза життю — 102."}],
+  q:["Чому «нікому не кажи» тут не працює?","Кому з дорослих ти можеш довіряти?"]},
+ "Мж":{h:"Ключ до «Світлофора меж»",cases:[
+  {t:"Дражнять твій голос",s:"Однокласники перекривляють, як ти говориш на уроці.",a:"🟡/🔴. Якщо людині неприємно і це повторюється, це вже цькування."},
+  {t:"Пересилають твоє фото",s:"Твоє фото пересилають в інший чат без дозволу.",a:"🔴. Фото людини поширюють лише з її згоди."},
+  {t:"«Смішні» стікери з тобою",s:"З твого фото зробили стікер і кидають у чат.",a:"🔴. Навіть «смішно» без згоди — порушення меж."},
+  {t:"«Не ображайся, це жарт»",s:"Тебе образили і кажуть: «Не ображайся, це ж жарт».",a:"🟡/🔴. Жарт смішний лише тоді, коли смішно всім, з кого жартують."},
+  {t:"Тебе не кличуть у групу",s:"Створили чат класу без тебе.",a:"🟡. Може бути випадковістю, а може бути навмисним ігноруванням. Варто спитати."},
+  {t:"Пишуть тобі вночі",s:"Знайомий з інтернету пише о другій ночі й просить фото.",a:"🔴. Не надсилати, зберегти скрін, сказати дорослому."}],
+  q:["Де для вас межа між жартом і образою?","Що можна сказати, якщо жарт неприємний?"]},
+ "Сд":{h:"Сценарій радіоп’єси «Фото в чаті»",cases:[
+  {t:"Ситуація",s:"У чаті класу хтось виклав фото Андрія (вигадане ім’я; змініть, якщо в класі є Андрій), де він задрімав на уроці, з підписом «Наш соня 😂». Посипались смішки й стікери."},
+  {t:"Сцена 1. Свідки мовчать",s:"Кривдник: «Гляньте, наш соня знову в ефірі 😂». Постраждалий: «Видаліть, будь ласка». Кривдник: «Та не ображайся, це ж жарт». Свідки ставлять 😂 або мовчать. Оповідач: «Андрій вийшов із чату. Наступного дня він не підключився до уроку.»"},
+  {t:"Сцена 2. Свідки діють",s:"Свідок 1: «Досить, це не смішно. Видали фото». Свідок 2 (в особисті Андрію): «Я з тобою, не зважай». Свідок 3: «Я сказав класному керівнику». Кривдник: «Ну гаразд, видалив». Оповідач: «Фото зникло. Андрій залишився в чаті.»",a:"Висновок: кожна з трьох дій свідка змінила фінал. Мовчання теж впливає: воно підтримує кривдника."}],
+  q:["Що змінилося між першим і другим фіналом?","Яка дія свідка найлегша саме для тебе?","Чому «я просто мовчав» — теж вибір?"]},
+ "16":{h:"Ідеї для 16 карток",list:["Що таке булінг і кібербулінг","Як відрізнити жарт від образи","Що робити, якщо тебе цькують","Як підтримати друга","Куди звернутися: 116 111","Не пересилай чужі фото без дозволу","Сила свідка: 3 дії","Особисті межі: як сказати «ні»","Насильство вдома: це не «сімейна справа»","Як захистити акаунт","Що робити з образливим коментарем","Слова, які ранять, і слова, які лікують","Хто такі «дорослі, яким я довіряю»","Як заспокоїтися, коли тебе образили","Чому кривдник теж потребує допомоги","Наш клас проти насильства: наші правила"]},
+ "Кл":{h:"Питання для розмови з бабусею чи дідусем",list:["Що розповідали у вашій родині про 1932–1933 роки?","Як називалося наше село тоді і чи змінилося воно?","Чи є в родині історія про те, як люди допомагали одне одному?","Що ви хотіли б, щоб ми пам’ятали?"],
+  cases:[{t:"Важливо",s:"Розмова тільки за згодою; якщо людині важко згадувати, не наполягати. Записуємо спогад своїми словами, без зайвих подробиць."}]},
+ "Бт":{h:"Словник для гри «Вгадай слово»",list:["Крінж — сором, незручна ситуація","Вайб — атмосфера, настрій","Рофл — жарт, сміх","Чіл — відпочинок, розслабитися","Імба — дуже круто","Агритися — злитися","Токсик — людина, яка постійно кривдить інших","Хайп — гучна популярність"]},
+ "Ям":{h:"Питання для картки закладу",list:["Як називається заклад і де він?","Які спеціальності чи профілі?","Як вступити і що потрібно?","Чи є гуртожиток?","Коли день відкритих дверей?"]},
+ "Пф":{h:"Питання до гостя-професіонала",list:["Як ви обрали свою професію?","Що найважче у вашій роботі?","Що потрібно вчити вже зараз, щоб стати таким, як ви?","Чи можна працювати за вашою професією в селі?"]}
+};
+E.forEach(e=>{if(CS[e.s])e.cs=CS[e.s]});
+
+/* ---------- state ---------- */
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(_){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}};
+let seen=new Set(store.get("pn_seen",[]));
+let tabPref=store.get("pn_tab","stu");
+function kyivToday(){
+  try{const s=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Kyiv",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());const[y,m,d]=s.split("-").map(Number);return{y,m,d}}
+  catch(_){const t=new Date();return{y:t.getFullYear(),m:t.getMonth()+1,d:t.getDate()}}
+}
+const T=kyivToday();
+const todayNum=(T.y>YEAR||(T.y===YEAR&&T.m>MONTH))?99:(T.y===YEAR&&T.m===MONTH)?T.d:0;
+const isOpen=e=>!LOCK||e.u<=todayNum;
+
+/* ---------- table ---------- */
+const $=s=>document.querySelector(s);
+const pal=e=>W[e.w||e.p];
+const styleOf=e=>{const w=pal(e);return `--a:var(${w.a});--b:var(${w.b});--tx:${w.tx}`};
+const rot=i=>((i*37)%7-3)*0.7;
+let sel=null;
+const LEAF='<svg class="leaf" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lfg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC43D"/><stop offset=".5" stop-color="#FF7A1A"/><stop offset="1" stop-color="#E23A2E"/></linearGradient></defs><path d="M50 2 L61 19 L72 10 L70 30 L87 21 L83 37 L99 39 L87 51 L95 59 L73 65 L76 78 L56 71 L54 95 L46 95 L44 71 L24 78 L27 65 L5 59 L13 51 L1 39 L17 37 L13 21 L30 30 L28 10 L39 19 Z" fill="url(#lfg)" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><path d="M50 92 L50 22 M50 62 L22 46 M50 62 L78 46 M50 48 L32 26 M50 48 L68 26" stroke="#FFE2B0" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".35"/></svg>';
+function cellHTML(e,key,i){
+  if(e.cls==="start")return `<button class="el leafbtn" data-k="${key}" aria-label="${e.nm}, ${e.n} листопада — почни тут">${LEAF}<span class="lin"><span class="lnum">${e.n}</span><span class="lsym">${e.s}</span><span class="lnm">${e.nm}</span></span><span class="go">👉 ПОЧНИ ТУТ</span>${seen.has(key)?'<span class="got">⭐</span>':''}</button>`;
+  const open=isOpen(e);
+  const cls=[e.noble?"noble":"",e.cls||"",open?"":"lock"].join(" ");
+  const isNew=e.u===todayNum&&/^\d+$/.test(e.n);
+  return `<button class="el ${cls}" data-k="${key}" style="${styleOf(e)};--rot:${rot(i)}deg" aria-label="${e.nm}${/^\d+$/.test(e.n)?", "+e.n+" листопада":""}">
+    <span class="top"><span>${e.n}</span><span class="mass">${e.m||""}</span></span>${e.j?'<span class="jr" title="потрібен запис в е-журнал"><span class="ow">🦉</span><span class="jt">журнал</span></span>':''}
+    <span class="pic" aria-hidden="true">${e.pic}</span>
+    ${open?"":`<span class="lk"><span>🔒 ${e.u}.11</span></span>`}
+    <span class="sym">${e.s}</span><span class="nm">${e.nm}</span>
+    ${e.cls==="start"?'<span class="go">👉 ПОЧНИ ТУТ</span>':isNew?'<span class="new">СЬОГОДНІ</span>':''}${seen.has(key)?'<span class="got" title="переглянуто">⭐</span>':''}</button>`;
+}
+const groups=[["I","Пн"],["II","Вт"],["III","Ср"],["IV","Чт"],["V","Пт"],["VI","вихідні"],["VII","9 клас","var(--cyb)"],["VIII","тема тижня"]];
+function renderTable(){
+  let h=`<div class="gh"><span>період</span><span>група →</span></div>`+groups.map(g=>`<div class="gh"><b>${g[0]}</b><span>${g[1]}</span></div>`).join("");
+  for(let p=1;p<=5;p++){
+    h+=`<div class="ph" style="--pc:var(${W[p].b})"><b>${p}</b><span>${W[p].dates}</span><i>${SHORT[p]}</i></div>`;
+    for(let g=1;g<=8;g++){const i=E.findIndex(x=>x.p===p&&x.g===g);h+=i<0?`<div class="void"></div>`:cellHTML(E[i],"E:"+i,i)}
+  }
+  $("#pt").innerHTML=h;
+  const gotE=E.filter((e,i)=>seen.has("E:"+i)).length;
+  $("#got").textContent=gotE;$("#tot").textContent=E.length;
+  $("#gbar").style.width=Math.round(gotE/E.length*100)+"%";
+}
+$("#today").textContent=todayNum===0?"📅 Гра стартує 1 листопада":todayNum===99?"📅 Листопад завершено":`📅 Сьогодні ${todayNum} листопада`;
+(function(){const cols=["var(--w1b)","var(--w2b)","var(--w3b)","var(--w4b)","var(--w5b)","var(--cyb)"];const h=$("#h1");const words=h.textContent.split(" ");
+ h.innerHTML=words.map((w,wi)=>wi<2?`<span>${w}</span>`:[...w].map((ch,i)=>`<span class="l" style="color:${cols[i%cols.length]};--r:${((i*13)%5-2)*2}deg">${ch}</span>`).join("")).join(" ")})();
+
+/* ---------- window ---------- */
+const ORDER=[...E.map((e,i)=>"E:"+i).sort((a,b)=>{const x=E[+a.split(":")[1]],y=E[+b.split(":")[1]];return x.u-y.u||x.p-y.p||x.g-y.g}),...F.map((f,i)=>"F:"+i)];
+const get=k=>{const[l,i]=k.split(":");return l==="E"?E[+i]:F[+i]};
+const linkBtns=(arr,alt)=>(arr||[]).filter(k=>L[k]).map(k=>`<a class="lnk ${alt?"alt":""}" href="${L[k][1]}" target="_blank" rel="noopener">${L[k][0]} ↗</a>`).join("");
+function dateLine(e,key){
+  if(key[0]==="F")return e.n==="∞"?"щодня протягом листопада":"раз за місяць";
+  if(/^\d+$/.test(e.n)){const wd=new Date(YEAR,MONTH-1,+e.n).getDay();return `${e.n} листопада, ${DAYS[(wd+6)%7]}`}
+  return e.noble?"тиждень "+W[e.p].dates:"протягом тижня "+W[e.p].dates;
+}
+let lastCell=null;
+function openWin(key){
+  sel=key;const e=get(key),w=pal(e),win=$("#win"),ov=$("#ov");
+  win.setAttribute("style",`--a:var(${w.a});--b:var(${w.b});--tx:${w.tx}`);
+  const open=isOpen(e);
+  if(open&&!seen.has(key)){seen.add(key);store.set("pn_seen",[...seen])}
+  const heroCls=!open?"lockh":e.cls?e.cls:key[0]==="F"?"fbk":e.noble?"nobleh":"";
+  let html=`<div class="hero ${heroCls}">
+     <button class="x" id="wx" type="button" aria-label="Закрити">×</button>
+     <div class="bigel"><div class="top"><span>${e.n}</span><span>${e.m||""}</span></div><div class="sym">${e.s}</div><div class="nm">${e.nm}</div></div>
+     <div class="ttl"><div class="wk">${w.n}</div><h3 id="wtitle">${open?e.nm:"Елемент ще запечатано"}</h3><div class="dt">${dateLine(e,key)}</div></div>
+     <div class="bigpic" aria-hidden="true">${open?e.pic:"🔒"}</div>
+     ${open?`<div class="tabs" role="tablist"><button class="tab" role="tab" id="t-stu" aria-selected="${tabPref==="stu"}" type="button">🧒 Учням</button><button class="tab" role="tab" id="t-tch" aria-selected="${tabPref==="tch"}" type="button">🍂 Класному керівнику</button></div>`:""}
+   </div>`;
+  if(!open){
+    html+=`<div class="lockmsg"><div style="font-size:60px">🍁🔒🍁</div><div>Цей елемент відкриється <b>${e.u} листопада</b>.</div></div>`;
+  }else{
+    const wheel=e.wheel?`<div class="wheelbox"><div class="wheelwrap"><canvas id="wh" width="440" height="440" aria-label="Колесо з варіантами"></canvas><div class="ptr"></div></div>
+      <div style="display:grid;gap:10px;min-width:0"><div class="lab">🎡 Колесо листопада</div><button class="spin" id="spin" type="button">Крутити!</button><div class="wres" id="wres" aria-live="polite">Натисни «Крутити!»</div></div></div>`:"";
+    html+=`<div class="pane" id="p-stu" ${tabPref==="stu"?"":"hidden"}>
+        <div class="form">${e.f||""}</div>
+        <div class="bubble">${e.stu}</div>
+        ${e.todo?`<div class="blk"><div class="lab">Що робимо</div><div>${e.todo}</div></div>`:""}
+        ${e.sl?`<div class="links">${linkBtns(e.sl)}</div>`:""}
+        ${wheel}
+        ${e.fun?`<div class="fun">${e.fun}</div>`:""}
+      </div>
+      <div class="pane" id="p-tch" ${tabPref==="tch"?"":"hidden"}>
+        <div class="form">${e.f||""}</div>
+        <div class="row2">
+          <div class="blk"><div class="lab">За планом ліцею</div><ul>${e.plan.map(x=>`<li>${x}</li>`).join("")}</ul>${e.j?'<div class="jnote"><span>🦉</span> Сова нагадує: зробіть запис в е-журналі!</div>':''}</div>
+          <div class="blk"><div class="lab">Як провести</div><ol>${(e.tip||[]).map(x=>`<li>${x}</li>`).join("")}</ol></div>
+        </div>
+        ${/^\d+$/.test(e.n)&&e.g<=5?`<div class="planb" style="background:var(--soft);border-color:var(--line)"><b>🔁 Щодня:</b> перекличка-настрій і скріни присутності, ранкове коло.</div>`:""}
+        ${e.cs?`<div class="cases"><h5>🗂️ Готові ситуації для обговорення · ${e.cs.h}</h5>
+          ${e.cs.list?`<ul class="cl">${e.cs.list.map(x=>`<li>${x}</li>`).join("")}</ul>`:""}
+          ${(e.cs.cases||[]).map(c=>`<div class="case"><div class="ct">${c.t}</div>${c.s?`<div>${c.s}</div>`:""}${c.a?`<div class="ca">✅ ${c.a}</div>`:""}${c.q?`<div class="cq"><b>Питання до класу:</b> ${c.q.join(" ")}</div>`:""}</div>`).join("")}
+          ${e.cs.q?`<div class="cq"><b>❓ Питання до класу:</b><ul class="cl" style="margin-top:4px">${e.cs.q.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:""}
+        </div>`:""}
+        ${e.wt?`<div class="planb" style="background:#F3ECFF;border-color:#D7C4FF"><b>🎡 Що означає колесо для вас:</b> ${e.wt}<ul style="margin-top:6px">${e.wheel.map(w=>`<li><b>${w[0]}</b> — ${w[1]}</li>`).join("")}</ul></div>`:""}
+        ${e.q?`<div class="planb" style="background:#EEF6FF;border-color:#BBD9FF"><b>🤫 Тихий варіант, якщо клас мовчить:</b> ${e.q}</div>`:""}
+        ${e.b?`<div class="planb"><b>🔦 План Б, якщо немає світла чи інтернету:</b> ${e.b}</div>`:""}
+        ${e.tl?`<div class="blk"><div class="lab">Посилання</div><div class="links">${linkBtns(e.tl,true)}</div></div>`:""}
+      </div>`;
+  }
+  html+=`<div class="wnav"><button id="wp" type="button">← попередній</button><button id="wn" type="button">наступний →</button></div>`;
+  win.innerHTML=html;
+  /* if the frame is as tall as the page, place the window next to the clicked cell */
+  const tall=innerHeight>=document.documentElement.scrollHeight-4;
+  ov.classList.toggle("tall",tall);
+  if(tall){const c=document.querySelector(`.el[data-k="${key}"]`)||lastCell;const top=c?c.getBoundingClientRect().top+scrollY-40:scrollY;ov.style.height=document.documentElement.scrollHeight+"px";win.style.marginTop=Math.max(12,top)+"px"}
+  else{ov.style.height="";win.style.marginTop=""}
+  ov.hidden=false;document.body.classList.add("modal-open");
+  $("#wx").onclick=closeWin;$("#wp").onclick=()=>step(-1);$("#wn").onclick=()=>step(1);
+  if(open){
+    const setTab=t=>{tabPref=t;store.set("pn_tab",t);$("#p-stu").hidden=t!=="stu";$("#p-tch").hidden=t!=="tch";$("#t-stu").setAttribute("aria-selected",t==="stu");$("#t-tch").setAttribute("aria-selected",t==="tch")};
+    $("#t-stu").onclick=()=>setTab("stu");$("#t-tch").onclick=()=>setTab("tch");
+    if(e.wheel)setupWheel(e.wheel);
+  }
+  win.scrollTop=0;$("#wx").focus({preventScroll:true});
+  renderTable();
+}
+function closeWin(){$("#ov").hidden=true;document.body.classList.remove("modal-open");const c=document.querySelector(`.el[data-k="${sel}"]`);if(c)c.focus({preventScroll:true})}
+function step(d){const i=ORDER.indexOf(sel);openWin(ORDER[(i+d+ORDER.length)%ORDER.length])}
+$("#ov").addEventListener("click",ev=>{if(ev.target.id==="ov")closeWin()});
+document.addEventListener("click",ev=>{const b=ev.target.closest(".el");if(b){lastCell=b;openWin(b.dataset.k)}});
+document.addEventListener("keydown",ev=>{if($("#ov").hidden)return;if(ev.key==="Escape")closeWin();if(ev.key==="ArrowRight")step(1);if(ev.key==="ArrowLeft")step(-1)});
+
+/* ---------- wheel ---------- */
+function setupWheel(items){
+  const cv=$("#wh"),ctx=cv.getContext("2d"),N=items.length,R=210,C=220,TAU=Math.PI*2,seg=TAU/N;
+  const cols=["#FF7A9C","#FFCF4A","#5CC2FF","#C094FF","#6BE0A6","#FF9A3C","#3FD8D2","#FFB3C7"];
+  let ang=0,spinning=false;
+  function draw(){
+    ctx.clearRect(0,0,440,440);
+    for(let i=0;i<N;i++){
+      const a0=ang+i*seg-Math.PI/2,a1=a0+seg;
+      ctx.beginPath();ctx.moveTo(C,C);ctx.arc(C,C,R,a0,a1);ctx.closePath();ctx.fillStyle=cols[i%cols.length];ctx.fill();
+      ctx.strokeStyle="#fff";ctx.lineWidth=4;ctx.stroke();
+      ctx.save();ctx.translate(C,C);ctx.rotate(a0+seg/2);ctx.textAlign="right";ctx.fillStyle="#3A2416";
+      ctx.font=`800 ${N>10?15:18}px Nunito, sans-serif`;
+      let t=items[i][0];if(t.length>21)t=t.slice(0,20)+"…";ctx.fillText(t,R-12,6);ctx.restore();
+    }
+    ctx.beginPath();ctx.arc(C,C,28,0,TAU);ctx.fillStyle="#fff";ctx.fill();ctx.lineWidth=5;ctx.strokeStyle="#3A2416";ctx.stroke();
+    ctx.font="24px serif";ctx.textAlign="center";ctx.fillText("🍁",C,C+8);
+  }
+  draw();
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const mod=x=>((x%TAU)+TAU)%TAU;
+  $("#spin").onclick=()=>{
+    if(spinning)return;spinning=true;
+    const target=Math.floor(Math.random()*N),final=-(target*seg+seg/2);
+    const start=ang,dest=start+(reduce?0:5*TAU)+mod(final-start),dur=reduce?1:3200,t0=performance.now();
+    $("#wres").textContent="Крутиться…";
+    function anim(t){const k=Math.min(1,(t-t0)/dur),ease=1-Math.pow(1-k,4);ang=start+(dest-start)*ease;draw();
+      if(k<1)requestAnimationFrame(anim);else{ang=mod(dest);draw();spinning=false;$("#wres").innerHTML="🎉 "+items[target][0]+'<div class="wexp">'+items[target][1]+'</div>'}}
+    requestAnimationFrame(anim);
+  };
+}
+
+renderTable();
+
+/* ---------- falling leaves ---------- */
+(function(){
+  const cv=$("#leaves"),ctx=cv.getContext("2d");const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const em=["🍁","🍂","🍃","🍁","🍂"];let W0=1,H0=1;const lv=[];
+  function size(){W0=cv.width=innerWidth;H0=cv.height=Math.min(innerHeight,2400)}
+  size();addEventListener("resize",size);
+  for(let i=0;i<20;i++)lv.push({x:Math.random()*W0,y:Math.random()*H0,s:16+Math.random()*18,v:.3+Math.random()*.7,a:Math.random()*6,e:em[i%em.length],sw:Math.random()*2});
+  function frame(){
+    ctx.clearRect(0,0,W0,H0);ctx.globalAlpha=.5;
+    for(const l of lv){
+      if(!reduce){l.y+=l.v;l.a+=.01;l.x+=Math.sin(l.a)*.6*l.sw;if(l.y>H0+30){l.y=-30;l.x=Math.random()*W0}}
+      ctx.save();ctx.translate(l.x,l.y);ctx.rotate(Math.sin(l.a)*.6);ctx.font=`${l.s}px serif`;ctx.fillText(l.e,0,0);ctx.restore();
+    }
+    if(!reduce)requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+
+</body></html>
